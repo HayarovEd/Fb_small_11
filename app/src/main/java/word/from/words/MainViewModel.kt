@@ -24,6 +24,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         _state.value.copy(
             currentWord = words.first(),
             timer = 3,
+            score = 0,
             message = "",
             statusGame = StatusGame.Pause
         )
@@ -76,6 +77,8 @@ class MainViewModel @Inject constructor() : ViewModel() {
                 delay(1000)
             }
             _state.value.copy(
+                timer = 3,
+                score = 0,
                 message = "Game completed",
                 statusGame = StatusGame.Pause
             )
