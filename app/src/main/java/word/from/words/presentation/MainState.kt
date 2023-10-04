@@ -1,6 +1,9 @@
-package word.from.words
+package word.from.words.presentation
+
+import word.from.words.data.words
 
 data class MainState(
+    val status: ApplicationStatus = ApplicationStatus.Loading,
     val currentWord: String = words.first(),
     val allWords: List<String> = words,
     val score: Int = 0,

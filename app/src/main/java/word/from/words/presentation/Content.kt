@@ -1,4 +1,4 @@
-package word.from.words
+package word.from.words.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,11 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -37,9 +35,14 @@ import word.from.words.ui.theme.white
 @Composable
 fun Content(
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel = hiltViewModel()
+    score: Int,
+    timer: Int,
+    currentWord: String,
+    allWords: List<String>,
+    message: String,
+    statusGame: StatusGame,
+    onEvent: (MainEvent) -> Unit
 ) {
-    val state = viewModel.state.collectAsState()
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -52,19 +55,19 @@ fun Content(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Score: ${state.value.score}",
+                text = "Score: $score",
                 fontSize = 20.sp,
                 color = titleText
             )
             Text(
-                text = "Time: ${state.value.timer}",
+                text = "Time: $timer",
                 fontSize = 20.sp,
                 color = titleText
             )
         }
         Spacer(modifier = modifier.height(20.dp))
         Text(
-            text = "Find: ${state.value.currentWord}",
+            text = "Find: $currentWord",
             fontSize = 30.sp,
             color = titleText
         )
@@ -74,14 +77,14 @@ fun Content(
                 .fillMaxWidth(),
             columns = GridCells.Fixed(3)
         ) {
-            items(state.value.allWords) {
+            items(allWords) {
                 Box (
                     modifier = modifier
                         .padding(2.dp)
                         .clip(shape = RoundedCornerShape(5.dp))
                         .background(color = card)
                         .clickable {
-                            viewModel.click(it)
+                            onEvent(MainEvent.OnSelect(variant = it))
                         }
                         .padding(5.dp)
                 ){
@@ -103,9 +106,9 @@ fun Content(
                     containerColor = card
                 ),
                 onClick = {
-                    viewModel.reset()
+                    onEvent(MainEvent.OnReset)
                 },
-                enabled = state.value.statusGame is StatusGame.Quiz
+                enabled = statusGame is StatusGame.Quiz
             ) {
                 Text(
                     text = "Reset Quiz",
@@ -120,9 +123,9 @@ fun Content(
                     containerColor = card
                 ),
                 onClick = {
-                    viewModel.play()
+                    onEvent(MainEvent.OnPlay)
                 },
-                enabled = state.value.statusGame is StatusGame.Pause
+                enabled = statusGame is StatusGame.Pause
             ) {
                 Text(
                     text = "Play",
@@ -133,7 +136,7 @@ fun Content(
         }
         Spacer(modifier = modifier.height(10.dp))
         Text(
-            text = state.value.message,
+            text = message,
             fontSize = 30.sp,
             color = titleText
         )
