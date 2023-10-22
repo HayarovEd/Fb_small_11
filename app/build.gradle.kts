@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "word.from.words"
+    namespace = "com.wordsfind.app"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "word.from.words"
+        applicationId = "com.wordsfind.app"
         minSdk = 21
         targetSdk = 34
         versionCode = 1

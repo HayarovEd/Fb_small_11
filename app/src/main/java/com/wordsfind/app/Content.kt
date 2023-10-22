@@ -1,4 +1,4 @@
-package word.from.words
+package com.wordsfind.app
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,11 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -29,10 +27,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import word.from.words.ui.theme.background
-import word.from.words.ui.theme.card
-import word.from.words.ui.theme.titleText
-import word.from.words.ui.theme.white
+import com.wordsfind.app.StatusGame.Pause
+import com.wordsfind.app.StatusGame.Quiz
+import com.wordsfind.app.ui.theme.background
+import com.wordsfind.app.ui.theme.card
+import com.wordsfind.app.ui.theme.titleText
+import com.wordsfind.app.ui.theme.white
 
 @Composable
 fun Content(
@@ -105,7 +105,7 @@ fun Content(
                 onClick = {
                     viewModel.reset()
                 },
-                enabled = state.value.statusGame is StatusGame.Quiz
+                enabled = state.value.statusGame is Quiz
             ) {
                 Text(
                     text = "Reset Quiz",
@@ -122,7 +122,7 @@ fun Content(
                 onClick = {
                     viewModel.play()
                 },
-                enabled = state.value.statusGame is StatusGame.Pause
+                enabled = state.value.statusGame is Pause
             ) {
                 Text(
                     text = "Play",

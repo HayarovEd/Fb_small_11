@@ -1,4 +1,4 @@
-package word.from.words
+package com.wordsfind.app
 
 sealed interface StatusGame {
     object Pause: StatusGame

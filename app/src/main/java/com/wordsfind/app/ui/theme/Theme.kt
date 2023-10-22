@@ -1,4 +1,4 @@
-package word.from.words.ui.theme
+package com.wordsfind.app.ui.theme
 
 import android.app.Activity
 import android.os.Build

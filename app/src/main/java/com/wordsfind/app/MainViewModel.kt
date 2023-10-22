@@ -1,7 +1,9 @@
-package word.from.words
+package com.wordsfind.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.wordsfind.app.StatusGame.Pause
+import com.wordsfind.app.StatusGame.Quiz
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -26,14 +28,14 @@ class MainViewModel @Inject constructor() : ViewModel() {
             timer = 3,
             score = 0,
             message = "",
-            statusGame = StatusGame.Pause
+            statusGame = Pause
         )
             .updateStateUI()
     }
 
     fun play() {
         _state.value.copy(
-            statusGame = StatusGame.Quiz,
+            statusGame = Quiz,
             currentWord = words.random(),
             allWords = words.shuffled()
         )
@@ -57,7 +59,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         }
         _state.value.copy(
             timer = 3,
-            statusGame = StatusGame.Quiz,
+            statusGame = Quiz,
             currentWord = words.random(),
             allWords = words.shuffled()
         )
@@ -80,7 +82,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
                 timer = 3,
                 score = 0,
                 message = "Game completed",
-                statusGame = StatusGame.Pause
+                statusGame = Pause
             )
                 .updateStateUI()
         }
